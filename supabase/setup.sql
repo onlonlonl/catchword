@@ -20,7 +20,7 @@ CREATE TABLE catchword_pages (
   created_at timestamptz DEFAULT now()
 );
 
--- Annotations (on paragraphs, with one level of replies)
+-- Annotations (on paragraphs, with sentence-level quotes and one level of replies)
 CREATE TABLE catchword_annotations (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   page_id uuid REFERENCES catchword_pages(id) ON DELETE CASCADE,
@@ -28,6 +28,7 @@ CREATE TABLE catchword_annotations (
   paragraph_index int DEFAULT 0,
   author text NOT NULL CHECK (author IN ('moon', 'bulb')),
   content text NOT NULL,
+  quote text DEFAULT '',
   parent_id uuid REFERENCES catchword_annotations(id) ON DELETE CASCADE,
   depth int DEFAULT 0 CHECK (depth <= 1),
   created_at timestamptz DEFAULT now()
