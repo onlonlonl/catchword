@@ -187,6 +187,7 @@ Deno.serve(async (req: Request) => {
           paragraph_index: body.paragraph_index ?? 0,
           author: body.author,
           content: body.content,
+          quote: body.quote || "",
         };
         if (body.parent_id) {
           insert.parent_id = body.parent_id;
